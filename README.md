@@ -6,7 +6,7 @@ Este proyecto corresponde al Sprint 9 del programa de QA Engineer de TripleTen.
 
 El objetivo es automatizar mediante Selenium el flujo completo para solicitar un taxi en la aplicación web **Urban Routes**.
 
-Las pruebas automatizadas verifican diferentes acciones del usuario, desde introducir las direcciones de origen y destino hasta solicitar un taxi y comprobar que aparezca el modal correspondiente.
+Las pruebas automatizadas verifican diferentes acciones del usuario, desde introducir las direcciones de origen y destino hasta solicitar un taxi y esperar a que aparezca la información del conductor.
 
 ## Funcionalidades automatizadas
 
@@ -20,8 +20,9 @@ El proyecto cubre las siguientes pruebas:
 6. Solicitar manta y pañuelos.
 7. Solicitar dos helados.
 8. Pedir un taxi y comprobar que aparezca el modal de búsqueda.
+9. Esperar a que aparezca la información del conductor **(prueba opcional)**.
 
-Actualmente las 8 pruebas obligatorias se ejecutan correctamente mediante `pytest`.
+Las 8 pruebas obligatorias y la prueba opcional del conductor se ejecutan mediante `pytest`.
 
 ## Tecnologías utilizadas
 
@@ -66,11 +67,16 @@ Para agregar una tarjeta se completan el número y el código CVV.
 
 Después de introducir el CVV se utiliza `Keys.TAB` para hacer que el campo pierda el enfoque y habilitar el botón para agregar la tarjeta.
 
+### Espera de información del conductor
+
+Como prueba opcional, después de solicitar el taxi se utiliza una espera explícita con `WebDriverWait` para esperar a que Urban Routes termine la búsqueda y muestre información relacionada con el conductor asignado.
+
 ## Estructura del proyecto
 
 ```text
 qa-project-Urban-Routes-es/
 │
+├── .gitignore
 ├── data.py
 ├── main.py
 └── README.md
@@ -146,7 +152,7 @@ Pytest ejecutará todas las pruebas automatizadas.
 
 ## Resultado esperado
 
-La ejecución correcta debe mostrar las 8 pruebas aprobadas:
+La ejecución completa debe mostrar las 8 pruebas obligatorias y la prueba opcional:
 
 ```text
 test_set_route PASSED
@@ -157,12 +163,13 @@ test_message_for_driver PASSED
 test_blanket_and_handkerchiefs PASSED
 test_two_ice_creams PASSED
 test_order_taxi PASSED
+test_driver_information PASSED
 ```
 
-Resultado:
+Resultado esperado al ejecutar también la prueba opcional:
 
 ```text
-8 passed
+9 passed
 ```
 
 ## Autor

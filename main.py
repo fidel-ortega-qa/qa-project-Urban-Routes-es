@@ -142,6 +142,11 @@ class UrbanRoutesPage:
         'order-body'
     )
 
+    driver_rating = (
+        By.CLASS_NAME,
+        'order-btn-rating'
+    )
+
     def select_taxi(self):
         taxi_button = WebDriverWait(self.driver, 10).until(
             expected_conditions.element_to_be_clickable(self.taxi_button)
@@ -324,6 +329,14 @@ class UrbanRoutesPage:
 
         return modal.is_displayed()
 
+    def wait_for_driver_information(self):
+        driver_info = WebDriverWait(self.driver, 60).until(
+            expected_conditions.visibility_of_element_located(
+                self.driver_rating
+            )
+        )
+
+        return driver_info.is_displayed()
 
     def __init__(self, driver):
         self.driver = driver
@@ -440,6 +453,11 @@ class TestUrbanRoutes:
         routes_page.order_taxi()
 
         assert routes_page.is_order_modal_displayed()
+
+    def test_driver_information(self):
+        routes_page = UrbanRoutesPage(self.driver)
+
+        assert routes_page.wait_for_driver_information()
 
     @classmethod
     def teardown_class(cls):
