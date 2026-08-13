@@ -460,5 +460,19 @@ class TestUrbanRoutes:
         assert routes_page.wait_for_driver_information()
 
     @classmethod
-    def teardown_class(cls):
-        cls.driver.quit()
+    def setup_class(cls):
+        options = webdriver.ChromeOptions()
+
+        options.set_capability(
+            "goog:loggingPrefs",
+            {"performance": "ALL"}
+        )
+
+        # TEMPORALMENTE DESACTIVADO PARA DIAGNÓSTICO
+        options.add_argument("--headless=new")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--window-size=1920,1080")
+
+        cls.driver = webdriver.Chrome(options=options)
+
